@@ -1,1 +1,1 @@
-Hahaha
+This repository includes work done in java both in private and at the university of Oslo. Most files should be in working condition, yet further updates to files can be made to improve their performance
