@@ -1,8 +1,0 @@
-public class kjorminoppgave
-{
-  public static void main(String[] args)
-  {
-    MinOppgave5 lonn = new MinOppgave5;
-    
-  }
-}
