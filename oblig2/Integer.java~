@@ -1,0 +1,10 @@
+public class Regnut
+{
+  public static void main(String[] args)
+  {
+    int a = 5;
+    int b = 3;
+    c = a/b;
+    println(c);
+  }
+}

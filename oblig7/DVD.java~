@@ -1,0 +1,49 @@
+/**
+   Class for holding information about a DVD and its owner.
+   Also holds information about who is borrowing the DVD
+ */
+
+public class DVD
+{
+  private String tittel;
+  private String eier;
+  public String posisjon;
+
+  public DVD(String title, String owner)
+  {
+    tittel = title;
+    eier = owner;
+    posisjon = owner;
+  }
+
+  /**
+    Method for returning the title of the
+    dvd in string format
+  */
+
+  public String tittel()
+  {
+    return tittel;
+  } 
+
+  /**
+     Method for returning the owner of the dvd
+     in string format
+  */
+  public String eier()
+  {
+    return eier;
+  }
+  
+  public String posisjon()
+  {
+    return posisjon;
+  }
+  /**
+     Method for changing the position of the dvd
+   */
+  public void flytt(String navn)
+  {
+    posisjon = navn;
+  }
+}

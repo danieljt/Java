@@ -1,0 +1,1 @@
+Her fikk jeg kjoert meg! Innleveringen var Middels paa vanskelighetsgraden. Mest paa grunn av all den innebygde funksjonaliteten som maa innlaeres. Brukte ca 3 timer paa innleveringen. Mye av tiden ble brukt paa aa faa inn alle teknikkene til lesing av filer og forstaa dem. Hadde det veldig goay med innleveringen!

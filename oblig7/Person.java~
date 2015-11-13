@@ -1,0 +1,234 @@
+import java.util.HashMap;
+
+/**
+  Class for holding the information on a person. Each person
+  can owna set of dvds in a list. Assume that every person can
+  only own one copy of a given dvd. The person can lend or 
+  borrow as many dvds as he wants as long as they are not 
+  already borrowed.
+*/
+
+public class Person
+{
+  private String navn;
+  private HashMap<String, DVD> arkiv;
+  private HashMap<String, DVD> utlant;
+  private HashMap<String, DVD> lant;
+  
+
+  public Person(String name)
+  {
+    navn = name;
+    arkiv = new HashMap<String, DVD>();
+    utlant = new HashMap<String, DVD>();
+    lant = new HashMap<String, DVD>();
+  }
+
+  /**
+     Check owned dvds
+   */
+  public DVD sjekkarkiv(String title)
+  {
+    DVD dvd = arkiv.get(title);
+    return dvd;
+  } 
+
+  /**
+     Check loaned dvds
+   */
+  public DVD sjekkutlant(String title)
+  {
+    DVD dvd = utlant.get(title);
+    return dvd;
+  }
+
+  /**
+     Check borrowed dvds
+   */
+  public DVD sjekklant(String title)
+  {
+    DVD dvd = lant.get(title);
+    return dvd;
+  }
+
+  /**
+    Check number of owned dvds 
+   */
+  public int antalleid()
+  {
+    return arkiv.size();
+  }
+
+  /**
+     Check number of borrowed dvds
+   */
+  public int antallant()
+  {
+    return lant.size();
+  }
+
+  /**
+     Check number of dvds that are lended to others
+   */
+  public int antallutlant()
+  {
+    return utlant.size();
+  }
+
+  /**
+    Method adding a dvd to the list. The program checks if the
+    dvd is already in inventory. If it is, the program tells
+    the user and terminates.
+  */
+  public void kjop(String title)
+  {
+    DVD dvd = arkiv.get(title);
+    if(dvd == null)
+      {
+	arkiv.put(title, new DVD(title, navn));
+      }
+    else
+      {
+	System.out.println("Personen eier allerede en kopi");
+	System.out.println("av " + title);
+      }
+  }
+
+  /**
+     Method for lending of a dvd. Method searches the 
+     current persons dvd archive, and if the person
+     doesn't have the dvd or it is already being rented, tell the user
+     and return null. 
+   */
+  public DVD lanut(String title)
+  {
+    DVD dvd = arkiv.get(title);
+    if(dvd == null)
+      {
+	System.out.println("Personen eier ikke denne dvden.");
+	return null;
+      }
+    else if(dvd.eier().equalsIgnoreCase(dvd.posisjon()))
+      {
+	utlant.put(title, dvd);
+	return dvd;
+      }
+    else
+      {
+	System.out.println("Denne dvd-en er allerede leid ut.");
+	return null;
+      }
+  }
+  
+  /**
+     Method for putting av DVD to the borrowong list. Method checks
+     if the person already owns a copy, if the person does, the
+     user is notified.
+   */
+  public void laan(DVD dvd)
+  {
+    DVD check = lant.get(dvd);
+    String tittel = dvd.tittel(); 
+    if(check == null)
+      {
+	lant.put(tittel, dvd);
+      }
+    else
+      {
+	System.out.println("Personen laaner allerede en kopi!");
+      }
+  }
+  /**
+     Method for updating this persons archive when getting
+     a dvd back from someone. Method removes
+     the dvd from the utlant list.
+   */
+  public void retur(String title)
+  {
+    DVD dvd = utlant.get(title);
+    if(dvd == null)
+      {
+	System.out.println("Har ikke leid ut denne filmen!");
+      }
+    else
+      {
+	utlant.remove(title);
+      }
+  }
+
+  /**
+     Method for updating this persons archive when 
+     giving a dvd back to someone
+   */
+  public DVD gitilbake(String title)
+  {
+    DVD dvd = lant.get(title);
+    if(dvd == null)
+      {
+	System.out.println("Personen har ikke lant denne dvd-en");
+      }
+    else
+      {
+	lant.remove(title);
+      }
+    return dvd;
+  }
+  /**
+     Method for printing the current dvds in inventory
+   */ 
+  public HashMap printarkiv()
+  {
+    return arkiv;
+  }
+  
+  /**
+     Method for printing the current dvds that are being borrowed
+     from this person
+   */
+  public HashMap printutlant()
+  {
+    return utlant;
+  }
+  
+  /**
+     Methd for printing the current dvds this person is borrowing
+   */
+  public HashMap printlant()
+  {
+    return lant;
+  }
+
+  /**
+     Method for printing an overview of the persons
+     current statistics
+   */
+  public void oversikt()
+  {
+    System.out.println("Navn: " + navn);
+    System.out.println(navn + " eier " + arkiv.size() +  " DVD-er");
+    System.out.println(navn + " laner bort " + utlant.size() +  " DVD-er");
+    System.out.println(navn + " laner " + lant.size() +  " DVD-er");
+
+    System.out.println("DVD-er " + navn + " laner:");
+    if(lant.isEmpty())
+      {
+	System.out.println(navn +" laner ingen dvder");
+      }
+    else
+      {
+	for(String s : lant.keySet())
+	  {
+	    DVD denne = lant.get(s);
+	    System.out.println(s + " er lant fra " + denne.eier());
+	  } 
+      }
+  }
+
+  public void kjappoversikt()
+  {
+    System.out.println("Navn: " + navn);
+    System.out.println("Eier: " + arkiv.size());
+    System.out.println("Laant: " + lant.size());
+    System.out.println("Utlaant: " + utlant.size());
+  }
+}

@@ -1,0 +1,8 @@
+import java.util.Scanner;
+
+public class SumTall
+{
+  public static void main(String[] args)
+  {
+    scanner readnumber = new Scanner;
+    

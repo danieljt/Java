@@ -1,0 +1,26 @@
+--------------------------------------------------------------------------------
+OPPGAVE a)
+--------------------------------------------------------------------------------
+Kompileringsfeil(Ogsaa kalt syntaks feil) er skrivefeil eller andre brudd paa reglene som programmeringsspraaket er bygget opp av, og som gjoer at kompilatoren ikke produserer noe program. Problemet blir rapportert saa godt kompilatoren kan.
+
+Kjoarefeil(Ogsaa kalt logiske feil) er skrivefeil i programmet som gir feil resultat eller ulovlige verdier under kjoering. Det blir produsert et program, men det blir ikke produsert noen feilmeldinger. Ulovlige verdier blir derimot rapportert dersom de inntreffer.  
+
+--------------------------------------------------------------------------------
+OPPGAVE b)
+--------------------------------------------------------------------------------
+1) Kompilatoren har her produsert feilmeldinger, som betyr at det er gjort en 
+   eller flere skrivefeil. Her har den produsert en melding om at den ikke 
+   finner klassen, og den har i tillegg lagd et ^ tegn der den mener feilen 
+   inntreffer, saa jeg begynner aa se der. Jeg begynner gjerne med den oeverste    feilen, da en feil kan foraarsake flere feil nedover i programmet. i dette 
+   tilfellet er det Class som er skrevet med stor forbokstav, og det er feil. 
+
+2) Java er bygd slik at programmet maa ha minst en klasse og et main program.
+   kompilatoren leter derfor etter class. Denne finner den ikke da denne er
+   feilskrevet, men kompilatoren vil allikevel forsoake aa finne flere feil.
+   Siden class linjen er feil, saa vil kompilatoren automatisk si at neste
+   feil fordi den fortsatt leter etter class for aa initialisere. Dette ser
+   vi ogsaa fra feilmeldingen.
+
+3) Ingen saa har kompilatoren gitt et hint om feilen, og sier at det mangler et    ; tegn et sted. Så ser jeg etter ^ tegnet for å se hvor kompilatoren tror 
+   feilen er, og der finner jeg at jeg mangler en ; bak print kommandoen. 
+

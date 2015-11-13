@@ -1,0 +1,49 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+KOMMENTAR TIL OPPGAVEN MED EGENVURDERING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Denne oppgaven var vanskelig. Oppgaven føltes tung og rotete å implementere. Jeg står igjen med et uferdig produkt da jeg rett og slett ikke har hatt tid til å gjøre alt. Programmet kjører uten feilmeldinger nå, uten at jeg har fått testet den veldig mye. Med et par dager til så ville jeg nok klart å gjøre meg ferdig med alle metodene og fått programmet i mer eller mindre kjørbar stand da metodene i seg selv ikke er kompliserte, bare rotete å sette sammen. Jeg har ikke tall på hvor lang tid implementeringen har tatt, Men setter 20 timer som et gjetting.
+
+Det som åpenbart mangler er:
+------------------------------------------------------------------------------------------------------
+lesArkiv metoden, som da skal lese arkiv filen og sette verdier inn i klassene er uferdig. jeg forholder meg til pseudokoden som er lagt ut på nettet, men har ikke hatt tid til å fullført den. Har kommentert den ut av main metoden foreløpig
+
+Meny metoden ser ut til å fungere bra foreløpig, men magefølelsen sier at det helt sikkert er noen småfeil gjemt i koden som jeg ikke har hatt anledning til å teste ut.
+
+SkrivArkiv har jeg ikke startet på.
+
+Ellers er det mye gjenbruk av kode som helt sikkert kunne blitt ungått. Det er noen småfikser som kan gjøres her og der for å gjøre det lettere for brukeren, f. eks fjerne case sensitivitet og redigering av public og private variabler m.h.h personvernloven. Har også en posisjon metode i DVD filen som ikke er brukt helt optimalt. Er heller ikke fornøyd med layout til menyen i forhold tl valgene, så skulle gjerne fikset litt på den også hadde det vært mer tid! 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+KJAPP OVERSIKT AV OPPBYGGINGEN AV PRORAMMET
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DVDAdministrasjon:
+--------------------------------------------------------------------------------------- 
+Dette er hovedprogrammet for administrasjonen. Her gjøres alle administrative oppgaver.
+Registrering av personer, administrering av utlån og retur og kjøp av dvder. Administrasjonen
+er slik at den ha 0 til flere personer registrert. Administrasjonen har også tilgang til alle
+personer og deres dvder.
+
+
+Person:
+---------------------------------------------------------------------------------------
+Dette er klassen for en person. Programmet har informasjon om navnet, hvilke dvder
+personen eier og hvilke personer han låner ut dvder til og hvem han låner fra.
+En person kan eie 0 til flere dvder, men en dvd kan kun eies av én person. 
+Dvden kan kun lånes bort til én person av gangen. DVD listen er i hovedsak privat,
+og skjult for andre personer, men ved utlån så får andre personer adgang
+til lånbort listen ved at denne personen gjør objektet tilgjengelig i utlånslisten, Dersom 
+DVD-en blir lånt bort har denne personen adgang til den andre personens låneliste.
+
+
+DVD:
+---------------------------------------------------------------------------------------
+Dette er klassen for dvd objekter. Klassen lager et nytt objekt av typen dvd
+med tittelen, eieren og hvem som evt låner den. En dvd kan kun eies av én person,
+og kun befinne seg hos én person om gangen.
+
+				    
+				

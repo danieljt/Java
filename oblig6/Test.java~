@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+
+public class Test
+{
+  public static void main(String[] args)
+  {
+    ArrayList<Ord> ordliste = new ArrayList<>();
+    
+    // List of words to use
+    String[] list = {"en","to","to"};
+    ordliste.add(new Ord("en"));
+
+    for (String word : list) 
+      {
+	Ord temporary = null;
+	boolean check = false;
+
+	for (int i = 0; i < ordliste.size(); i++)
+	  {
+	    temporary = ordliste.get(i);
+	    //System.out.println(temporary);
+	    if (word.equalsIgnoreCase(temporary.toString()))
+	      {
+		temporary.oekAntall();
+		check = true;
+	      }
+	  }
+
+	if (check = false)
+	  {
+	    ordliste.add(new Ord(word));
+	  }
+
+      }
+    
+    // Print the result
+    //System.out.println(ordliste);
+
+
+  }
+}

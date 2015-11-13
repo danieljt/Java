@@ -1,0 +1,10 @@
+public class Oppgave54
+{
+  public static void main(String[] args)
+  {
+    Isbod boden = new Isbod();
+    boden.ansett("Joakim Gunnar");
+    boden.ansett("Vibekke Tramp");
+    boden.ansett("Kjell Turid");
+  }
+}

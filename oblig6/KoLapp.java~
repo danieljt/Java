@@ -1,0 +1,10 @@
+public class koLapp
+{
+  public KoLapp(int nummer)
+  {
+  }
+
+  public int hentNummer()
+  {
+  }
+}

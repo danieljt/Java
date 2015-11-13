@@ -1,0 +1,5 @@
+class NegativeTall
+{
+  public static void main(String[] args)
+  {
+    int[] heltall = {1, 4, 5, -2, -4, 6, 10, 3, -2}

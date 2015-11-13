@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+
+public class KoSystem
+{
+  ArrayList<KoLapp> koLapper = new ArrayList<>();
+  int teller = 0;
+
+  public void trekkKoLapp()
+  {
+    teller ++;
+    KoLapp nylapp = new KoLapp(teller);
+    koLapper.add(nylapp);
+  }
+
+  public void betjenKunde()
+  {
+    if(koLapper.isEmpty())
+      {
+	System.out.println("Det er ingen i ko");
+      }
+    else
+      {
+	KoLapp betjenes = koLapper.remove(0);
+	System.out.print("Har betjent kunde med billettnr: ");
+	System.out.println(betjenes.hentNummer());
+      }
+  }
+
+  public int antKunder()
+  {
+    return koLapper.size();
+  }
+
+  public void printKunderIKo()
+  {
+    for(KoLapp KoLapp : koLapper)
+      {
+	System.out.println(KoLapp.hentNummer());
+      }
+  }
+}

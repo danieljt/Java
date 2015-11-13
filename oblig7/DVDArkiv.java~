@@ -1,0 +1,179 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+
+/*
+  Class for administration of a DVD archive with People and their corresponding
+  DVD's. This is the main program., To run this program, the following 
+  classes are also needed:
+  -----------------------------------------------------
+  Person.java    : Holds information of the people
+  DVD.java       : Holds information about DVDs
+  -----------------------------------------------------
+
+  Person.java includes information about a given person and the DVDs
+  the person currently owns. It also includes information about what 
+  DVDs this person is renting or lending. DVD.java includes the 
+  information about the DVD itself.
+
+  Included in this main program are the methods:
+  -----------------------------------------------------
+  LesArkiv(filename)
+  Meny()
+  SkrivArkiv(filename)
+  -----------------------------------------------------
+
+  LesArkiv reads information from an archive txt file and adds it to
+  the program. Meny displays an interactive menu for the user to add
+  information to the database. SkrivArkiv writes the current information 
+  to the archive file or a new file if necessary.
+
+  More updates and information will be made available as the program
+  construction progresses.
+**/
+
+public class DVDArkiv
+{
+  private Arraylist<Person> navneliste;
+
+  public DVDArkiv()
+  {
+    navneliste = new ArrayList<>();
+  }
+  public static void main(String[] args) throws Exception
+  {
+    
+    // Read the current file and add to archive
+    //String filnavn = "dvdarkiv.txt";
+    //LesArkiv(filnavn);
+
+    // Display the meny and start interactive session
+    Meny();
+
+    // Write the changes to a new file
+    //SkrivArkiv(dvdarkiv);
+
+  }
+
+  /*
+    Method for Adding information from the archive file
+    to the main program for further implementation
+  **/
+
+  static void LesArkiv(String filnavn) throws Exception
+  {
+    File file = new File(filnavn);
+    Scanner reader = new Scanner(file);
+    while(reader.hasNextLine())
+      {
+	String line = reader.nextLine();
+	if(line.startsWith("-"))
+	  {
+	    System.out.println(line);
+	  }    
+      }
+  }
+
+  /*
+    Method for displaying the many and taking input
+    from the user.
+  **/
+  static void Meny()
+  {
+    Scanner input = new Scanner(System.in);
+
+    // Display menu
+    System.out.println("------------------------------");
+    System.out.println("MENY FOR DVD ADMINISTRASJON");
+    System.out.println("------------------------------");
+    System.out.println();
+    System.out.println("VENNLIGST VELG EN HANDLING:");
+    System.out.println();
+    System.out.println("1: Registrer ny person");
+    System.out.println("2: Kjop film");
+    System.out.println("3: Laan film");
+    System.out.println("4: Vis");
+    System.out.println("5: Oversikt over kunder");
+    System.out.println("6: Retur av film");
+    System.out.println("7: Avslutt programmet");
+    System.out.println("------------------------------");
+
+    // Define the choice variable
+    int choice;
+
+    // Make the choice, update the classes.
+    do
+      {
+
+	// Test that the input is integer
+	while(true)
+	  {
+	    System.out.print("Tast inn ditt valg: ");
+	    try
+	      {		
+		choice = Integer.parseInt(input.nextLine());
+		break;
+	      }
+	    catch(NumberFormatException ignore)
+	      {
+		System.out.println("Ugyldig input!");
+		System.out.println("Input ma vere et heltall");
+	      }
+	  }
+	    
+	if(choice == 1)
+	  {
+	    System.out.print("Gi navnet på personen: ");
+	    String navn = input.nextLine();
+	    if (navneliste.IsEmpty())
+	      {
+		navneliste.add(new Person(navn));
+	      }
+	    else
+	      {
+		for(Person person : navneliste)
+		  {
+		    if(navn.equalsIgnoreCase(person.toString))
+		      {
+			System.out.println("Personen er allerede registrert!");
+			break;
+		      }
+		    navneliste.add(new Person(navn));
+		  }
+	      }
+	  }
+	else if(choice == 2)
+	  {
+	  }
+	else if(choice == 3)
+	  {
+	  }
+	else if(choice == 4)
+	  {
+	  }
+	else if(choice == 5)
+	  {
+	  }
+	else if(choice == 6)
+	  {
+	  }
+	else if(choice == 7)
+	  {
+	    System.out.println("AVSLUTTER PROGRAMMET");
+	  }
+	else
+	  {
+	    System.out.println("Ikke gyldig input");
+	    System.out.println("Input ma vere et helt tall mellom 1 og 7");
+	  }
+      }while(choice != 7);
+  }
+    
+  /*
+    Method for taking the current database and writing the 
+    information to file
+  **/
+  static void Skrivarkiv(String filename)
+  {
+  }
+}
