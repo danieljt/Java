@@ -1,1 +1,1 @@
-This repository includes work done in java both in private and at the university of Oslo. Most files should be in working condition, yet further updates to files can be made to improve their performance
+This repository includes work done in java both in private and at the university of Oslo. Most files should be in working condition, and are done in norwegian. Work has been put down to convert projects to english.
