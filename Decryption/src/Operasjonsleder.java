@@ -23,6 +23,7 @@ public class Operasjonsleder extends Thread{
 		printer = new PrintWriter[kanaler.length];
 	}
 	
+	@Override
 	public void run(){
 		try{
 			melding = bord.hentUt();

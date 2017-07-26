@@ -20,6 +20,7 @@ public class Melding implements Comparable<Melding>{
 	 * for aa se hvilken som har storst/minst sekvensnummer
 	 * @return 0 om de er like, 1 hvis denne er storre og -1 hvis den er mindre
 	 */
+	@Override
 	public int compareTo(Melding melding){
 		if(sekvensNummer > melding.sekvensNummer){
 			return 1;

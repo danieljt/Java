@@ -18,6 +18,7 @@ public class OrdnetLenkeListe<T extends Comparable<T>> extends Stabel<T>{
 	 * Setter inn elementer i alfabetisk rekkefolge inn i lenkelista
 	 * @param element objektet som settes inn
 	 */
+	@Override
 	public void settInn(T element){
 		Node ny = new Node(element);
 		

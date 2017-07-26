@@ -18,6 +18,7 @@ public class Koe<T> extends Stabel<T>{
 	* Denne metoden overstyrer settInn metoden i stabel
 	* @param element elementet som settes inn
 	*/
+	@Override
 	public void settInn(T element){
 	    Node ny = new Node(element);
 	    if(hale != null){
@@ -40,6 +41,7 @@ public class Koe<T> extends Stabel<T>{
 	 * Returnerer og fjerner forste element i lista. Er listen tom 
 	 * returnerer metoden null
 	 */
+	@Override
 	public T fjern(){
 		// Listen er tom
 		if(erTom() == true){

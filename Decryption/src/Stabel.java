@@ -27,6 +27,7 @@ public class Stabel<T> implements Liste<T>{
 	* Beregner antall elementer i listen
 	* @return antall elementer i listen
 	*/
+	@Override
 	public int storrelse(){
 		return antall;
 	}
@@ -35,6 +36,7 @@ public class Stabel<T> implements Liste<T>{
 	* Sjekker om listen er tom
 	* @return true om listen er tom, ellers false
 	*/
+	@Override
 	public boolean erTom(){
 		if(hode == null && hale == null){
 			return true;
@@ -49,6 +51,7 @@ public class Stabel<T> implements Liste<T>{
 	* de siste elementene som legges inn kommer forst i lista.
 	* @param element elementet som settes inn
 	*/
+	@Override
 	public void settInn(T element){
 	    Node ny = new Node(element);
 	    ny.neste = hode;
@@ -65,10 +68,12 @@ public class Stabel<T> implements Liste<T>{
 	* returneres null.
 	* @return elementet
 	*/
+	@Override
 	public T fjern(){
 		return null;
 	}
 	
+	@Override
 	public Iterator<T> iterator(){
 		return new ListeIterator();
 	}
@@ -98,10 +103,12 @@ public class Stabel<T> implements Liste<T>{
 		int teller = 0;
 		Node neste = hode;
 		
+		@Override
 		public boolean hasNext(){
 			return (teller < antall);
 		}
 		
+		@Override
 		public T next(){
 			T nesteObjekt = neste.objekt;
 			teller++;
@@ -109,6 +116,7 @@ public class Stabel<T> implements Liste<T>{
 			return nesteObjekt;
 		}
 		
+		@Override
 		public void remove(){
 			
 		}

@@ -27,6 +27,7 @@ public class Telegrafist extends Thread{
 		this.bord = bord;
 	}
 	
+	@Override
 	public void run(){
 		// Les neste melding helt til det ikke er flere igjen. Undrveis
 		// sendes meldingene til bordet. Nar traaden er ferdig oker den

@@ -20,6 +20,7 @@ public class Kryptograf extends Thread{
 		this.kryptografBord = kryptografBord;	
 	}
 	
+	@Override
 	public void run(){ 
 		// Hent meldingene fra telegrafistbordet og dekrypter dem. Send
 		// dem saa videre til neste bord. Avsluttes naar en melding naar
