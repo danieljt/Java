@@ -118,7 +118,7 @@ public class DVDAdministrasjon{
 					 }
 	    	
 					 else{
-						 // Attempt to finnish the loan
+						 // Attempt to finish the loan
 						 System.out.print("Title of the DVD: ");
 						 String title = input.nextLine();
 						 lender.lend(title, borrower);
@@ -174,7 +174,7 @@ public class DVDAdministrasjon{
 				else{
 					System.out.println("Title of the DVD: ");
 					String tittel = input.nextLine();
-					borrower.retur(tittel);
+					borrower.giveBack(tittel);
 				}
 				System.out.println();
 			}
@@ -184,6 +184,8 @@ public class DVDAdministrasjon{
 			}
 	
     	}while(choice != 7);
+		
+		input.close();
   	}
 
   	/**
@@ -194,6 +196,9 @@ public class DVDAdministrasjon{
   	static void readArchive(HashMap<String, Person> nameList) throws Exception{
   		String filename = "dvdarchive.txt";
   		File file = new File(filename);
+  		if(file.exists() == false){
+  			return;
+  		}
   		Scanner reader = new Scanner(file);
     
   		// Read the file line by line and add names
@@ -249,8 +254,8 @@ public class DVDAdministrasjon{
 
   		// Write all names to file
   		for(String s : nameList.keySet()){
-  			Person denne = nameList.get(s);
-  			out.println(denne.name());
+  			Person currentPerson = nameList.get(s);
+  			out.println(currentPerson.name());
   		}
 
   		// Write owned DVD-s to file
@@ -260,28 +265,26 @@ public class DVDAdministrasjon{
   			out.println(s);
 
   			// Write owned DVD-s to file
-  			HashMap<String, DVD> arkiv = person.archive();
-  			for(String eid : arkiv.keySet()){
-  				DVD dvd = arkiv.get(eid);
-  				Person utlaaner = dvd.owner();
-  				if(utlaaner == null){
+  			HashMap<String, DVD> archive = person.archive();
+  			for(String owned : archive.keySet()){
+  				DVD dvd = archive.get(owned);
+  				Person lender = dvd.owner();
+  				if(lender == null){
   					out.println(dvd.title());
   				}
   			} 
 
   			// Write dvds that are lended out with name of lender
-  			HashMap<String, DVD> leidut = person.lended();
-  			for(String ut : leidut.keySet())
-	  {
-	    DVD dvd = leidut.get(ut);
-	    Person utlaaner = dvd.owner();
-	    if(utlaaner != null)
-	      {
-		out.println("*" + dvd.title());
-		out.println(utlaaner.name());
-	      }
-	  }
-      }
+  			HashMap<String, DVD> lended = person.lended();
+  			for(String title : lended.keySet()){
+  				DVD dvd = lended.get(title);
+  				Person lender = dvd.owner();
+  				if(lender != null){
+  					out.println("*" + dvd.title());
+  					out.println(lender.name());
+  				}
+  			}
+  		}
     out.close();
-  }
+  	}
 }

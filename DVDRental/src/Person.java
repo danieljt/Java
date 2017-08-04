@@ -114,18 +114,18 @@ public class Person
      if the current person is borrowing the dvd from someone, 
      and then removes this dvd from this persons borrowed list.
    */
-  public void retur(String title)
+  public void giveBack(String title)
   {
     // Check if the current DVD is being borrowed
     DVD film = borrowed.get(title);
     if(film == null){
-    	System.out.println(name + " laaner ikke en kopi av " + title);
+    	System.out.println(name + " is not borrowing a copy of " + title);
     }
     
     else{
     	// Check if owner can recieve the DVD
     	Person eier = film.owner();
-    	eier.motta(film);
+    	eier.recieve(film);
 
     	// Update dvd position and loan list 
     	film.move(null);
@@ -137,10 +137,10 @@ public class Person
      Method for receiving a DVD back from someone, method checks
      if the current person is lending the DVD. If not
    */
-  public void motta(DVD film){
+  public void recieve(DVD film){
 	  DVD test = lended.get(film.title());
 	  if(test == null){
-		  System.out.println(name + " har ikke laant ut en kopi av" + film.title());
+		  System.out.println(name + " is not lending out a copy of" + film.title());
 	  }
 	  else{
 		  lended.remove(film.title());
@@ -156,10 +156,10 @@ public class Person
 
 	  // Print owned dvds
 	  if(archive.isEmpty()){
-		  System.out.println(name + " eier ingen DVD-er");
+		  System.out.println(name + " does not own any DVD's");
       }
     else{
-    	System.out.println("DVD-er " + name + " eier:");
+    	System.out.println("DVD's that " + name + " owns:");
     	for(String s : archive.keySet()){
     		DVD film = archive.get(s);
     		System.out.println(film.title());
@@ -168,29 +168,29 @@ public class Person
 
     // Print loaned dvds
     if(lended.isEmpty()){
-    	System.out.println(name + " laaner ikke bort noen DVD-er");
+    	System.out.println(name + " is not lending out any DVD's");
     }
     else{
-    	System.out.println("DVD-er " + name + " laaner bort:");
+    	System.out.println("DVD's that " + name + " is lending out:");
     	for(String s : lended.keySet()){
     		DVD film = lended.get(s);
     		Person navnpalaner = film.borrowed();
     		String laner = navnpalaner.name();
-    		System.out.println(film.title() + " laanes til " + laner);
+    		System.out.println(film.title() + " has been lended to " + laner);
     	}
     }
 
     // print borrowed DVD's
     if(borrowed.isEmpty()){
-    	System.out.println(name + " laaner ingen DVD-er.");
+    	System.out.println(name + " is not borrowing any DVD's.");
     }
     else{
-    	System.out.println("DVD-er " + name + " laaner:");
+    	System.out.println("DVD's " + name + " is borrowing:");
     	for(String s : borrowed.keySet()){
     		DVD film = borrowed.get(s);
-    		Person navnpautlaner = film.owner();
-    		String utlaner = navnpautlaner.name();
-    		System.out.println(film.title() + " er laant fra " + utlaner);
+    		Person nameOfLender = film.owner();
+    		String utlaner = nameOfLender.name();
+    		System.out.println(film.title() + " is borrowed from " + utlaner);
     	}
     }
     System.out.println("----------------------------------------");
