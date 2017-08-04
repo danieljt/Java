@@ -12,18 +12,17 @@ public class Person
 {
   // Declare the persons name, list of owned dvds, lended
   // dvds and borrowed dvds.
-  private String navn;
-  private HashMap<String, DVD> arkiv;
-  private HashMap<String, DVD> utlant;
-  private HashMap<String, DVD> lant;
+  private String name;
+  private HashMap<String, DVD> archive;
+  private HashMap<String, DVD> lended;
+  private HashMap<String, DVD> borrowed;
   
 
-  public Person(String name)
-  {
-    navn = name;
-    arkiv = new HashMap<String, DVD>();
-    utlant = new HashMap<String, DVD>();
-    lant = new HashMap<String, DVD>();
+  public Person(String name){
+    this.name = name;
+    this.archive = new HashMap<String, DVD>();
+    this.lended = new HashMap<String, DVD>();
+    this.borrowed = new HashMap<String, DVD>();
   }
 
   /**
@@ -33,20 +32,20 @@ public class Person
      person and ads to arkiv.
    */
 
-  public void kjop(DVD film)
-  {
+  public void buy(DVD film){
+	  
     // Get the title of the film and test if the person
     // already owns it. If the person does, give error
-    String tittel = film.tittel();
-    DVD test = arkiv.get(tittel);
-    if(test == null)
-      {
-	arkiv.put(tittel, film);
-      }
-    else
-      {
-	System.out.println(navn + " eier allerede en kopi av denne DVD-en!");
-      }
+    String title = film.title();
+    DVD test = archive.get(title);
+    
+    if(test == null){
+    	archive.put(title, film);
+    }
+    
+    else{
+    	System.out.println(name + " already owns a copy of this DVD!");
+    }
   }
 
   /**
@@ -54,33 +53,27 @@ public class Person
      ads the given dvd to the lending archive if the dvd is owned
      and in this persons inventory.
    */
-  public void laanut(String tittel, Person laner)
-  {
+  public void lend(String title, Person borrower){
     // Check if this person owns a copy
-    DVD testdvd = arkiv.get(tittel);
-    if(testdvd == null)
-      {
-	System.out.println(navn + " eier ikke en kopi av denne DVD-en!");
-      }
-    else
-      {
-	// Check that the person has the dvd in stock
-	Person testutlant = testdvd.utlaant();
-	if(testutlant != null)
-	  {
-	    System.out.println(navn + " laaner allerede ut sin kopi av " + testdvd.tittel());
-	  }
-	else
-	  {
-	    // Check if the lender can borrow
-	    Boolean check = laner.laan(testdvd, testdvd.eier());
-	    if(check == true)
-	      {
-		// Put dvd to lending list and update the dvd
-		utlant.put(tittel, testdvd);
-		testdvd.flytt(laner);
-	      }
-	  }
+    DVD testDVD = archive.get(title);
+    if(testDVD == null){
+    	System.out.println(name + " does not own a copy of this DVD!");
+    }
+    else{
+    	// Check that the person has the DVD in stock
+    	Person testBorrowed = testDVD.borrowed();
+    	if(testBorrowed != null){
+    		System.out.println(name + " has already lended the copy of " + testDVD.title());
+    	}
+    	else{
+    		// Check if the lender can borrow
+    		Boolean check = borrower.borrow(testDVD, testDVD.owner());
+    		if(check == true){
+    			// Put DVD to lending list and update the dvd
+    			borrowed.put(title, testDVD);
+    			testDVD.move(borrower);
+    		}
+    	}
       }
   }
 
@@ -91,34 +84,29 @@ public class Person
      returns true false if the person already has a copy, 
      and true if the person does not own a copy.
    */
-  public Boolean laan(DVD film, Person utlaner)
-  {
+  public Boolean borrow(DVD film, Person lender){
     // Get the title of the film
-    String tittel = film.tittel();
+    String title = film.title();
 
     // check if this person already owns a copy
-    DVD testdvd = arkiv.get(tittel);
-    if(testdvd != null)
-      {
-	System.out.println(navn + " eier allerede en kopi av " + testdvd.tittel());
-	return false;
-      }
-    else
-      {
-	// check if this person is already borrowing a copy
-	DVD testdvd2 = lant.get(tittel);
-	if(testdvd2 != null)
-	  {
-	    System.out.println(navn + " laaner allerede en kopi av " + testdvd2.tittel());
-	    return false;
-	  }
-	else
-	  {
-	    // Put the dvd to the borrowing list
-	    lant.put(tittel, film);
-	    return true;
-	  }
-      }
+    DVD testDVD = archive.get(title);
+    if(testDVD != null){
+    	System.out.println(name + " already owns a copy of " + testDVD.title());
+    	return false;
+    }
+    else{
+    	// check if this person is already borrowing a copy
+    	DVD testdvd2 = lended.get(title);
+    	if(testdvd2 != null){
+    		System.out.println(name + " is already lending a copy of " + testdvd2.title());
+    		return false;
+    	}
+    	else{
+    		// Put the DVD to the borrowing list
+    		lended.put(title, film);
+    		return true;
+    	}
+    }
   }
 
   /**
@@ -126,134 +114,116 @@ public class Person
      if the current person is borrowing the dvd from someone, 
      and then removes this dvd from this persons borrowed list.
    */
-  public void retur(String tittel)
+  public void retur(String title)
   {
     // Check if the current DVD is being borrowed
-    DVD film = lant.get(tittel);
-    if(film == null)
-      {
-	System.out.println(navn + " laaner ikke en kopi av " + tittel);
-      }
-    else
-      {
-	// Check if owner can recieve the DVD
-	Person eier = film.eier();
-	eier.motta(film);
+    DVD film = borrowed.get(title);
+    if(film == null){
+    	System.out.println(name + " laaner ikke en kopi av " + title);
+    }
+    
+    else{
+    	// Check if owner can recieve the DVD
+    	Person eier = film.owner();
+    	eier.motta(film);
 
-	// Update dvd position and loan list 
-	film.flytt(null);
-	lant.remove(tittel);
-      }
+    	// Update dvd position and loan list 
+    	film.move(null);
+    	borrowed.remove(title);
+    }
   }
 
   /**
      Method for receiving a DVD back from someone, method checks
      if the current person is lending the DVD. If not
    */
-  public void motta(DVD film)
-  {
-    DVD test = utlant.get(film.tittel());
-    if(test == null)
-      {
-	System.out.println(navn + " har ikke laant ut en kopi av" + film.tittel());
-      }
-    else
-      {
-	utlant.remove(film.tittel());
+  public void motta(DVD film){
+	  DVD test = lended.get(film.title());
+	  if(test == null){
+		  System.out.println(name + " har ikke laant ut en kopi av" + film.title());
+	  }
+	  else{
+		  lended.remove(film.title());
       }
   }
 
   /**
      Method for printing this persons archives.
    */
-  public void oversikt()
-  {
-    System.out.println("----------------------------------------");
-    System.out.println("Person: " + navn);
+  public void overview(){
+	  System.out.println("----------------------------------------");
+	  System.out.println("Person: " + name);
 
-    // Print owned dvds
-    if(arkiv.isEmpty())
-      {
-	System.out.println(navn + " eier ingen DVD-er");
+	  // Print owned dvds
+	  if(archive.isEmpty()){
+		  System.out.println(name + " eier ingen DVD-er");
       }
-    else
-      {
-	System.out.println("DVD-er " + navn + " eier:");
-	for(String s : arkiv.keySet())
-	  {
-	    DVD film = arkiv.get(s);
-	    System.out.println(film.tittel());
-	  }
-      }
+    else{
+    	System.out.println("DVD-er " + name + " eier:");
+    	for(String s : archive.keySet()){
+    		DVD film = archive.get(s);
+    		System.out.println(film.title());
+    	}
+    }
 
     // Print loaned dvds
-    if(utlant.isEmpty())
-      {
-	System.out.println(navn + " laaner ikke bort noen DVD-er");
-      }
-    else
-      {
-	System.out.println("DVD-er " + navn + " laaner bort:");
-	for(String s : utlant.keySet())
-	  {
-	    DVD film = utlant.get(s);
-	    Person navnpalaner = film.utlaant();
-	    String laner = navnpalaner.navn();
-	    System.out.println(film.tittel() + " laanes til " + laner);
-	  }
-      }
+    if(lended.isEmpty()){
+    	System.out.println(name + " laaner ikke bort noen DVD-er");
+    }
+    else{
+    	System.out.println("DVD-er " + name + " laaner bort:");
+    	for(String s : lended.keySet()){
+    		DVD film = lended.get(s);
+    		Person navnpalaner = film.borrowed();
+    		String laner = navnpalaner.name();
+    		System.out.println(film.title() + " laanes til " + laner);
+    	}
+    }
 
-    // print borrowed dvds
-    if(lant.isEmpty())
-      {
-	System.out.println(navn + " laaner ingen DVD-er.");
-      }
-    else
-      {
-	System.out.println("DVD-er " + navn + " laaner:");
-	for(String s : lant.keySet())
-	  {
-	    DVD film = lant.get(s);
-	    Person navnpautlaner = film.eier();
-	    String utlaner = navnpautlaner.navn();
-	    System.out.println(film.tittel() + " er laant fra " + utlaner);
-	  }
-      }
+    // print borrowed DVD's
+    if(borrowed.isEmpty()){
+    	System.out.println(name + " laaner ingen DVD-er.");
+    }
+    else{
+    	System.out.println("DVD-er " + name + " laaner:");
+    	for(String s : borrowed.keySet()){
+    		DVD film = borrowed.get(s);
+    		Person navnpautlaner = film.owner();
+    		String utlaner = navnpautlaner.name();
+    		System.out.println(film.title() + " er laant fra " + utlaner);
+    	}
+    }
     System.out.println("----------------------------------------");
   }
 
   /**
      Method for printing this persons statistics
   */
-  public void statistikk()
-  {
-    System.out.println("NAVN   : " + navn);
-    System.out.println("EIER   : " + arkiv.size());
-    System.out.println("LAANT  : " + lant.size());
-    System.out.println("UTLAANT: " + utlant.size());
+  public void statistics(){
+    System.out.println("NAME   : " + name);
+    System.out.println("OWNED  : " + archive.size());
+    System.out.println("LAANT  : " + borrowed.size());
+    System.out.println("UTLAANT: " + lended.size());
   }
 
   /**
      Return the persons name
    */
-  public String navn()
-  {
-    return navn;
+  public String name(){
+    return name;
   }
 
   /**
    */
-  public HashMap<String, DVD> arkiv()
-  {
-    return arkiv;
+  public HashMap<String, DVD> archive(){
+    return archive;
   }
 
-  public HashMap<String, DVD> utlant()
-  {
-    return utlant;
+  public HashMap<String, DVD> lended(){
+    return lended;
   }
-  public HashMap<String, DVD> lant()
-  {
-    return lant;
+  
+  public HashMap<String, DVD> borrowed(){
+    return borrowed;
   }
 }

@@ -3,19 +3,17 @@
    Also holds information about who is borrowing the DVD
  */
 
-public class DVD
-{
-  private String tittel;
-  private Person eier;
-  private Person laner;
+public class DVD{
+  private String title;
+  private Person owner;
+  private Person borrower;
 
-  public DVD(String title, Person owner)
-  {
+  public DVD(String title, Person owner){
     // Set the title, the owner and set the
     // borrowed status to null when initialized
-    tittel = title;
-    eier = owner;
-    laner = null;
+    this.title = title;
+    this.owner = owner;
+    this.borrower = null;
   }
 
   /**
@@ -23,18 +21,16 @@ public class DVD
     dvd in string format
   */
 
-  public String tittel()
-  {
-    return tittel;
+  public String title(){
+    return title;
   } 
 
   /**
      Method for returning the owner of the dvd
      in string format
   */
-  public Person eier()
-  {
-    return eier;
+  public Person owner(){
+    return owner;
   }
  
   /**
@@ -42,17 +38,15 @@ public class DVD
      dvd. Returns the current person borrowing it. Returns
      null if it is not borrowed 
    */
-  public Person utlaant()
-  {
-    return laner;
+  public Person borrowed(){
+    return borrower;
   }
 
   /**
      Method registering the loaner of the dvd, returns null
      if the dvd is still with it's owner
    */
-  public void flytt(Person navn)
-  {
-    laner = navn;
+  public void move(Person name){
+    borrower = name;
   }
 }
