@@ -63,7 +63,7 @@ public class Stack<T> implements List<T> {
 		Node out = head;
 		
 		// No objects in list
-		if(head == null){
+		if(isEmpty() == true){
 			return null;
 		}
 		
